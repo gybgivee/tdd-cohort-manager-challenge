@@ -8,7 +8,7 @@ class Cohort {
     getCohort() {
         return this.cohort;
     }
-    setCohort() {
+    addCohort() {
         const key = ('COHORT' + this.id).toString();
         this.id++;
         /* this make it double array -> this is wrong
@@ -79,47 +79,77 @@ class Cohort {
             let updateStudent = [];
             let studentDistinct = true;
 
-            console.log('cohortKeys ', cohortKeys[0], 'Student in cohort', allStudent[cohortKeys[0]].length);
-            console.log('cohortKeys ', cohortKeys[1], 'Student in cohort', allStudent[cohortKeys[1]]);
             for (let i = 0; i < listOfStudent.length; i++) {
-                studentDistinct =true;
-                const result = cohortKeys.forEach(element => {
-                    //console.log('allStudent ',element, allStudent[element], typeof element);
-                    const studentInCohort = allStudent[element];
-                    console.log('studentInCohort ',studentInCohort);
-                    for (let j = 0; j < studentInCohort.length; j++) {
-                        if (studentInCohort[j].name === listOfStudent[i].name) {
-                           studentDistinct=false;
-                           break;
-                        }
-                    }
-                });
-                if(studentDistinct){
+                const check = this.checkStudentDistinct(listOfStudent[i].name);
+                if (check.studentDistinct) {
                     console.log('------------------------------------------------------------');
+
                     updateStudent.push(listOfStudent[i]);
-                   
-                }
-                
+                    console.log('updateStudent ',updateStudent);
+                }             
             }
+           
             if (updateStudent.length > 0) {
                 for (const iterator of updateStudent) {
                     this.cohort[cohortName].push(iterator)
                 }
-             
-
-            }
+            } 
         }
 
         return this.cohort;
     }
+    removeStudentFromCohort(firstName, lastName) {
+        const studentName = firstName + ' ' + lastName;
 
+        const check = this.checkStudentDistinct(studentName);
+        console.log('check ', check);
+        if (!check.studentDistinct) {
+
+            this.cohort[check.cohortName].splice(check.index, 1);
+            console.log("I'm  here", this.cohort[check.cohortName]);
+        }
+
+        return this.cohort;
+    }
+    checkStudentDistinct(studentName) {
+        console.log('*******************************************************************');
+        const allStudent = this.cohort;
+        const cohortKeys = Object.keys(this.cohort);
+        let pointerCohort;
+        let index;
+        let studentDistinct = true;
+
+
+        //for (let i = 0; i < listOfStudent.length; i++) {
+        studentDistinct = true;
+        const result = cohortKeys.forEach(element => {
+            //console.log('allStudent ',element, allStudent[element], typeof element);
+            const studentInCohort = allStudent[element];
+
+            for (let j = 0; j < studentInCohort.length; j++) {
+                //console.log('studentInCohort ', studentInCohort[j]);
+                if (studentInCohort[j].name === studentName) {
+                    studentDistinct = false;
+                    pointerCohort = element;
+                    index = j;
+
+                    break;
+                }
+            }
+        });
+        return { studentDistinct: studentDistinct, cohortName: pointerCohort, index: index };
+    }
 
 }
+
+
+
+
 module.exports = Cohort
 /*
 const myCohort = new Cohort();
-console.log(myCohort.setCohort());
-console.log(myCohort.setCohort());
+console.log(myCohort.addCohort());
+console.log(myCohort.addCohort());
 myCohort.serchCohortByName("Cohort1");
 myCohort.removeCohortByName("Cohort3");
 */
