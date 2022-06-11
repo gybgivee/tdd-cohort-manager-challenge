@@ -1,4 +1,4 @@
-class student {
+class Student {
     constructor(student = [], id = 1) {
 
         this.student = student;
@@ -47,24 +47,31 @@ class student {
    
 }
 
-module.exports = student
+module.exports = Student
 const Cohort = require("../src/cohort.js");
 const myCohort = new Cohort();
 const cohort1 = myCohort.addCohort();
 console.log(myCohort.addCohort());
 
-const myStudent = new student();
+const myStudent = new Student();
 myStudent.setStudent('Mochi', 'foote', 'github.com/mochi', 'mochi@gmail.com')
 myStudent.setStudent('Marty', 'foote', 'github.com/Marty', 'marty@gmail.com')
 myStudent.setStudent('Mia', 'foote', 'github.com/mia', 'mia@gmail.com')
 myStudent.setStudent('Maew', 'foote', 'github.com/maew', 'maew@gmail.com');
-myCohort.setStudentToCohort(myStudent, cohort1);
-
-const myStudent2 = new student();
+const result = myCohort.setStudentToCohort(myStudent, cohort1);
+const updateStudentList = result.student;
+const updatedCohort = result.cohort;
+console.log(updatedCohort);
+console.log('--------------------------------------');
+console.log(updateStudentList);
+/*
+const myStudent2 = new Student();
 console.log(myStudent2.setStudent('Mia', 'foote', 'github.com/mia', 'mia@gmail.com'));
 console.log(myStudent2.setStudent('A', 'XYZ', 'github.com/a', 'aaa@gmail.com'));
 console.log(myStudent2.setStudent('B', 'XYZ', 'github.com/b', 'bbb@gmail.com'));
 console.log('cohortWithStudent ', myCohort.setStudentToCohort(myStudent2, cohort1));
+*/
+
 //console.log(myStudent.searchStudentByName('uki', 'sushi'));
 //console.log('Remove : ',myCohort.removeStudentFromCohort('A', 'XYZ'));
 

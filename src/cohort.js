@@ -23,17 +23,19 @@ class Cohort {
 
 
         return cohortName[0];
+        //return this.cohort;
     }
     serchCohortByName(cohortName) {
         cohortName = cohortName.toUpperCase();
         let studentList = [];
         const result = this.cohort.hasOwnProperty(cohortName);
-        console.log('Result : ', result);
+        //console.log('Result : ', result);
 
         if (result) {
             studentList = this.cohort[cohortName];
             console.log('   studentList  ', studentList);
             return studentList;
+            
         }
         console.log('Fail to search : cohort name not found');
         return studentList;
@@ -44,14 +46,13 @@ class Cohort {
     removeCohortByName(cohortName) {
         cohortName = cohortName.toUpperCase();
 
-        //const keysInCohort = Object.keys(this.cohort);
-        //console.log('keysInCohort ', keysInCohort);
-        for (let i = 0; i < this.cohort.length; i++) {
+        const keysInCohort = Object.keys(this.cohort);
+        console.log('keysInCohort ', keysInCohort);
+      
+        for (let i = 0; i < keysInCohort.length; i++) {
 
-            const key = Object.keys(this.cohort[i]);
-            if (key === cohortName) {
-                this.cohort.splice(i, 1);
-
+            if (keysInCohort[i] === cohortName) {
+                delete this.cohort[keysInCohort[i]];
                 console.log('updatedCohort ', this.cohort);
                 return this.cohort;
             }
@@ -67,10 +68,15 @@ class Cohort {
         //check if objectempty by get a value by key name if its empty, this will return [{}]
         const isObjectEmpty = Object.values(this.cohort[cohortName]);
         const listOfStudent = student.student;
+        let newStudentList = JSON.parse(JSON.stringify(listOfStudent));
         //console.log('isObjectEmpty ', isObjectEmpty);
         if (isObjectEmpty.length === 0) {
             //assign value to this cohort array by key
             this.cohort[cohortName] = listOfStudent;
+           for (let i = 0; i < listOfStudent.length;i++){
+            //add new cohort to student class
+            newStudentList[i].cohortName = cohortName;
+           }
 
         } else {
             console.log('check here');
@@ -82,10 +88,11 @@ class Cohort {
             for (let i = 0; i < listOfStudent.length; i++) {
                 const check = this.checkStudentDistinct(listOfStudent[i].name);
                 if (check.studentDistinct) {
-                    console.log('------------------------------------------------------------');
-
+                    
                     updateStudent.push(listOfStudent[i]);
                     console.log('updateStudent ',updateStudent);
+                    //add new cohort to student class
+                    newStudentList[i].cohortName = cohortName;
                 }             
             }
            
@@ -96,7 +103,7 @@ class Cohort {
             } 
         }
 
-        return this.cohort;
+        return {cohort:this.cohort,student:newStudentList};
     }
     removeStudentFromCohort(firstName, lastName) {
         const studentName = firstName + ' ' + lastName;
@@ -150,6 +157,10 @@ module.exports = Cohort
 const myCohort = new Cohort();
 console.log(myCohort.addCohort());
 console.log(myCohort.addCohort());
-myCohort.serchCohortByName("Cohort1");
-myCohort.removeCohortByName("Cohort3");
+//myCohort.serchCohortByName("Cohort1");
+//console.log(myCohort.serchCohortByName("Cohort100"));
+//myCohort.removeCohortByName("Cohort2");
+console.log(myCohort.removeCohortByName("Cohort100"));
+
 */
+
