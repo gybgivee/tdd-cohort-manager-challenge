@@ -19,23 +19,25 @@ class Cohort {
 
 
         const cohortName = Object.keys(this.cohort);
-        //console.log('cohortName ', cohortName);
+        console.log('cohort : ', this.cohort,Object.keys( this.cohort));
 
 
-        return cohortName[0];
+        return cohortName;
         //return this.cohort;
     }
-    serchCohortByName(cohortName) {
+    searchCohortByName(cohortName) {
         cohortName = cohortName.toUpperCase();
         let studentList = [];
-        const result = this.cohort.hasOwnProperty(cohortName);
-        //console.log('Result : ', result);
+        let currentCohort = this.cohort;
+        const result = currentCohort.hasOwnProperty(cohortName);
+        console.log('Result : ', result);
+
 
         if (result) {
-            studentList = this.cohort[cohortName];
-            console.log('   studentList  ', studentList);
+            studentList = currentCohort[cohortName];
+            console.log('studentList : ', studentList);
             return studentList;
-            
+
         }
         console.log('Fail to search : cohort name not found');
         return studentList;
@@ -47,10 +49,10 @@ class Cohort {
         cohortName = cohortName.toUpperCase();
 
         const keysInCohort = Object.keys(this.cohort);
-        console.log('keysInCohort ', keysInCohort);
-      
-        for (let i = 0; i < keysInCohort.length; i++) {
+        console.log('keysInCohort ', keysInCohort, keysInCohort.length, keysInCohort[0]);
 
+        for (let i = 0; i < keysInCohort.length; i++) {
+            console.log(i, 'Am in here');
             if (keysInCohort[i] === cohortName) {
                 delete this.cohort[keysInCohort[i]];
                 console.log('updatedCohort ', this.cohort);
@@ -73,37 +75,36 @@ class Cohort {
         if (isObjectEmpty.length === 0) {
             //assign value to this cohort array by key
             this.cohort[cohortName] = listOfStudent;
-           for (let i = 0; i < listOfStudent.length;i++){
-            //add new cohort to student class
-            newStudentList[i].cohortName = cohortName;
-           }
+            for (let i = 0; i < listOfStudent.length; i++) {
+                //add new cohort to student class
+                newStudentList[i].cohortName = cohortName;
+            }
 
         } else {
             console.log('check here');
             const allStudent = this.cohort;
             const cohortKeys = Object.keys(this.cohort);
             let updateStudent = [];
-            let studentDistinct = true;
-
+         
             for (let i = 0; i < listOfStudent.length; i++) {
                 const check = this.checkStudentDistinct(listOfStudent[i].name);
                 if (check.studentDistinct) {
-                    
+
                     updateStudent.push(listOfStudent[i]);
-                    console.log('updateStudent ',updateStudent);
+                    console.log('updateStudent ', updateStudent);
                     //add new cohort to student class
                     newStudentList[i].cohortName = cohortName;
-                }             
+                }
             }
-           
+
             if (updateStudent.length > 0) {
                 for (const iterator of updateStudent) {
                     this.cohort[cohortName].push(iterator)
                 }
-            } 
+            }
         }
 
-        return {cohort:this.cohort,student:newStudentList};
+        return { cohort: this.cohort, student: newStudentList };
     }
     removeStudentFromCohort(firstName, lastName) {
         const studentName = firstName + ' ' + lastName;
@@ -153,14 +154,15 @@ class Cohort {
 
 
 module.exports = Cohort
-/*
+
 const myCohort = new Cohort();
 console.log(myCohort.addCohort());
 console.log(myCohort.addCohort());
-//myCohort.serchCohortByName("Cohort1");
+const result = myCohort.searchCohortByName("Cohort1");
+console.log('result ', result, typeof result);
 //console.log(myCohort.serchCohortByName("Cohort100"));
-//myCohort.removeCohortByName("Cohort2");
-console.log(myCohort.removeCohortByName("Cohort100"));
+console.log('cohort2', myCohort.removeCohortByName("Cohort2"));
+console.log('cohort100', myCohort.removeCohortByName("Cohort100"));
 
-*/
+
 
