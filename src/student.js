@@ -11,6 +11,10 @@ class Student {
         return this.student;
     }
     addStudent(firstName, lastName, github, email) {
+        /* this way if you have 100 parameter , this way will work better
+        const stuentdetails = { firstName: 1, lastName: 2, github: 3, email: 4 };
+        const { firstName, lastName, github,email } = stuentdetails;
+        */
         const currentStudent = this.student;
         const name = firstName + ' ' + lastName;
         //let tempArray = [];
