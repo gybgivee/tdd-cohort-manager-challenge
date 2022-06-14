@@ -4,7 +4,6 @@ class Student {
         this.student = student;
         this.id = id;
 
-
     }
     //update Student list after add cohort
     updateStudent(student) {
@@ -64,7 +63,6 @@ class Student {
                 return this.student;
 
             }
-
         }
 
         console.log('Fail to remove : student name not found');

@@ -21,9 +21,7 @@ class Cohort {
         const cohortName = Object.keys(this.cohort);
         console.log('cohort : ', this.cohort, Object.keys(this.cohort));
 
-
         return cohortName;
-        //return this.cohort;
     }
     searchCohortByName(cohortName) {
         cohortName = cohortName.toUpperCase();
@@ -41,9 +39,7 @@ class Cohort {
         }
         console.log('Fail to search : cohort name not found');
         return studentList;
-        //console.log('Result : ',result,studentList);
-
-
+       
     }
     removeCohortByName(cohortName) {
         cohortName = cohortName.toUpperCase();
@@ -106,11 +102,10 @@ class Cohort {
                 let currentStudentInCohort = this.cohort[cohortName].length;
                 
                 for (const iterator of updateStudent) {
-                    
+
                     if (currentStudentInCohort >= this.limit) {
                         break;
                     }
-                   
                     this.cohort[cohortName].push(iterator);
                     currentStudentInCohort++;
                     console.log('currentStudentInCohort :',currentStudentInCohort);
@@ -141,15 +136,11 @@ class Cohort {
         let index;
         let studentDistinct = true;
 
-
-        //for (let i = 0; i < listOfStudent.length; i++) {
         studentDistinct = true;
         const result = cohortKeys.forEach(element => {
-            //console.log('allStudent ',element, allStudent[element], typeof element);
             const studentInCohort = allStudent[element];
 
             for (let j = 0; j < studentInCohort.length; j++) {
-                //console.log('studentInCohort ', studentInCohort[j]);
                 if (studentInCohort[j].name === studentName) {
                     studentDistinct = false;
                     pointerCohort = element;
