@@ -19,7 +19,7 @@ class Cohort {
 
 
         const cohortName = Object.keys(this.cohort);
-        console.log('cohort : ', this.cohort,Object.keys( this.cohort));
+        console.log('cohort : ', this.cohort, Object.keys(this.cohort));
 
 
         return cohortName;
@@ -71,21 +71,26 @@ class Cohort {
         const isObjectEmpty = Object.values(this.cohort[cohortName]);
         const listOfStudent = student.student;
         let newStudentList = JSON.parse(JSON.stringify(listOfStudent));
-        //console.log('isObjectEmpty ', isObjectEmpty);
+        const studentInCohort = listOfStudent.length;
+        console.log('studentInCohort : ',studentInCohort);
+        if (studentInCohort > this.limit) {
+            return 'Students exceeds limit'
+        }
         if (isObjectEmpty.length === 0) {
             //assign value to this cohort array by key
             this.cohort[cohortName] = listOfStudent;
+
             for (let i = 0; i < listOfStudent.length; i++) {
                 //add new cohort to student class
                 newStudentList[i].cohortName = cohortName;
             }
 
         } else {
-            console.log('check here');
+         
             const allStudent = this.cohort;
             const cohortKeys = Object.keys(this.cohort);
             let updateStudent = [];
-         
+
             for (let i = 0; i < listOfStudent.length; i++) {
                 const check = this.checkStudentDistinct(listOfStudent[i].name);
                 if (check.studentDistinct) {
@@ -98,8 +103,17 @@ class Cohort {
             }
 
             if (updateStudent.length > 0) {
+                let currentStudentInCohort = this.cohort[cohortName].length;
+                
                 for (const iterator of updateStudent) {
-                    this.cohort[cohortName].push(iterator)
+                    
+                    if (currentStudentInCohort >= this.limit) {
+                        break;
+                    }
+                   
+                    this.cohort[cohortName].push(iterator);
+                    currentStudentInCohort++;
+                    console.log('currentStudentInCohort :',currentStudentInCohort);
                 }
             }
         }
@@ -110,11 +124,11 @@ class Cohort {
         const studentName = firstName + ' ' + lastName;
 
         const check = this.checkStudentDistinct(studentName);
-        console.log('check ', check);
+       
         if (!check.studentDistinct) {
 
             this.cohort[check.cohortName].splice(check.index, 1);
-            console.log("I'm  here", this.cohort[check.cohortName]);
+            //console.log("I'm  here", this.cohort[check.cohortName]);
         }
 
         return this.cohort;

@@ -95,13 +95,16 @@ console.log(myStudent.searchStudentByName('Mochi', 'foote'));
 
 console.log('Remove : ', myCohort.removeStudentFromCohort('Maew', 'foote'));
 myStudent.removeStudentFromName('Maew', 'foote');
-/*
+
 const myStudent2 = new Student();
 console.log(myStudent2.addStudent('Mia', 'foote', 'github.com/mia', 'mia@gmail.com'));
 console.log(myStudent2.addStudent('A', 'XYZ', 'github.com/a', 'aaa@gmail.com'));
 console.log(myStudent2.addStudent('B', 'XYZ', 'github.com/b', 'bbb@gmail.com'));
-console.log('cohortWithStudent ', myCohort.setStudentToCohort(myStudent2, cohort1));
-*/
+const result2 = myCohort.setStudentToCohort(myStudent2, cohort1[0]);
+const updateStudentList2 = result2.student;
+const updatedCohort2 = result2.cohort;
+console.log('cohortWithStudent ',updatedCohort2);
+
 
 //console.log(myStudent.searchStudentByName('uki', 'sushi'));
 //console.log('Remove : ',myCohort.removeStudentFromCohort('A', 'XYZ'));
