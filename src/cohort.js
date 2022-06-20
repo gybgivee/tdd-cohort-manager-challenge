@@ -72,6 +72,7 @@ class Cohort {
         if (studentInCohort > this.limit) {
             return 'Students exceeds limit'
         }
+        //If this cohort is empty then it will add student list to this cohort without checking anything
         if (isObjectEmpty.length === 0) {
             //assign value to this cohort array by key
             this.cohort[cohortName] = listOfStudent;
@@ -82,7 +83,8 @@ class Cohort {
             }
 
         } else {
-         
+            //if this cohort already have student then I need to check if student is already in any other cohort 
+            // 1 student can only have 1 cohort and 1 cohort could have multiple students 
             const allStudent = this.cohort;
             const cohortKeys = Object.keys(this.cohort);
             let updateStudent = [];
@@ -99,6 +101,7 @@ class Cohort {
             }
 
             if (updateStudent.length > 0) {
+                // because 1 cohort can have only 24 students, so if try to add more than 24 students, it will ignore the rest.
                 let currentStudentInCohort = this.cohort[cohortName].length;
                 
                 for (const iterator of updateStudent) {
@@ -110,6 +113,7 @@ class Cohort {
                     currentStudentInCohort++;
                     console.log('currentStudentInCohort :',currentStudentInCohort);
                 }
+               
             }
         }
 
