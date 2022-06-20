@@ -38,7 +38,7 @@ class Cohort {
 
         }
         console.log('Fail to search : cohort name not found');
-        return studentList;
+        return 'Fail to search : cohort name not found';
        
     }
     removeCohortByName(cohortName) {

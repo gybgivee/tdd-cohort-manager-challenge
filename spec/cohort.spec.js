@@ -1,5 +1,5 @@
 const Cohort = require("../src/cohort.js");
-
+/*cohort :  [ COHORT1: {studentList:[]}, COHORT2: {studentList:[]} ] */ 
 describe("Cohort Test:", () => {
     let myCohort;
 
@@ -18,7 +18,8 @@ describe("Cohort Test:", () => {
         const result = myCohort.addCohort();
         expect(result[1]).toEqual(expected);
     });
-    it("Get Cohort by name",  () => {
+    it("Get Student List by Cohort name",  () => {
+      //this will return empty array because student List haven't been added to cohort 
         const expected = []
         const cohort1=myCohort.addCohort();
         const cohort2=myCohort.addCohort();
@@ -28,12 +29,12 @@ describe("Cohort Test:", () => {
       });
       
       it("Get Cohort by non existing name",  () => {
-        const expected = []
+        const expected = 'Fail to search : cohort name not found';
         const cohort1=myCohort.addCohort();
         const cohort2=myCohort.addCohort();
         const result = myCohort.searchCohortByName("Cohort100");
-        console.log('result In test:',result,cohort1,cohort2);
-        expect(Object.values(result)).toEqual(expected);
+      
+        expect(result).toEqual(expected);
       });
       it("Remove Cohort by name",  () => {
        const expected = {}
@@ -44,7 +45,7 @@ describe("Cohort Test:", () => {
         expect(result).toEqual(expected);
       });
       it("Remove Cohort by non existing name",  () => {
-        const expected =[];
+        const expected ='Fail to search : cohort name not found';
         myCohort.addCohort();
         myCohort.addCohort();
         const result = myCohort.searchCohortByName("Cohort100");
